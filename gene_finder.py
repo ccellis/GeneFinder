@@ -19,8 +19,7 @@ def shuffle_string(s):
 
 # YOU WILL START YOUR IMPLEMENTATION FROM HERE DOWN ###
 
-#Define a dictionary for easy complement switching
-complements = {'A':'T','T':'A','C':'G','G':'C'}
+
 def get_complement(nucleotide):
     """ Returns the complementary nucleotide
 
@@ -37,6 +36,9 @@ def get_complement(nucleotide):
     >>> get_complement('G')
     'C'
     """
+
+    #Define a dictionary for easy complement switching
+    complements = {'A':'T','T':'A','C':'G','G':'C'}
     return complements[nucleotide]
 
 
