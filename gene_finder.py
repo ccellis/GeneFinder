@@ -229,8 +229,13 @@ def longest_ORF(dna):
     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
     'ATGCTACATTCGCAT'
     """
-    # TODO: implement this
-    pass
+    ORFS = find_all_ORFs_both_strands(dna)
+    longest = ''
+    for ORF in ORFS:
+        if len(ORF) > len(longest):
+            longest = ORF
+
+    return longest
 
 
 def longest_ORF_noncoding(dna, num_trials):
@@ -239,9 +244,17 @@ def longest_ORF_noncoding(dna, num_trials):
 
         dna: a DNA sequence
         num_trials: the number of random shuffles
-        returns: the maximum length longest ORF """
-    # TODO: implement this
-    pass
+        returns: the maximum length longest ORF
+
+        We got no unit tests because the output is random"""
+
+    max_length = 0
+    for x in range(num_trials):
+        new_dna = shuffle_string(dna)
+        new_dna_length = len(longest_ORF(new_dna))
+        if new_dna_length > max_length:
+            max_length = new_dna_length
+    return max_length
 
 
 def coding_strand_to_AA(dna):
@@ -258,8 +271,13 @@ def coding_strand_to_AA(dna):
         >>> coding_strand_to_AA("ATGCCCGCTTT")
         'MPA'
     """
-    # TODO: implement this
-    pass
+    AA_sequence = ''
+    for codon in [dna[i:i+3] for i in range(0,len(dna),3)]:
+        if len(codon) < 3:
+            break
+        else:
+            AA_sequence += aa_table[codon]
+    return AA_sequence
 
 
 def gene_finder(dna):
@@ -268,8 +286,10 @@ def gene_finder(dna):
         dna: a DNA sequence
         returns: a list of all amino acid sequences coded by the sequence dna.
     """
-    # TODO: implement this
-    pass
+    threshold = longest_ORF_noncoding(dna,1500)
+    ORFs = find_all_ORFs_both_strands(dna)
+    genes = [coding_strand_to_AA(ORF) for ORF in ORFs if len(ORF) > threshold]
+    return genes
 
 if __name__ == "__main__":
     import doctest
