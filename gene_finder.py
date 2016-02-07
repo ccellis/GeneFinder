@@ -296,8 +296,11 @@ def gene_finder(dna):
 
         No doctests here, because this is the output we're actually trying to
         figure out.
+
+        But BLAST said that one of my genes was a salmonella gene, so I'm counting
+        that as a success.
     """
-    threshold = longest_ORF_noncoding(dna,1500)
+    threshold = longest_ORF_noncoding(dna,2000)
     ORFs = find_all_ORFs_both_strands(dna)
     genes = [coding_strand_to_AA(ORF) for ORF in ORFs if len(ORF) > threshold]
     return genes
