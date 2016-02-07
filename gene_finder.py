@@ -122,8 +122,6 @@ def find_all_ORFs_oneframe(dna):
         only find ORFs that are in the default frame of the sequence
         (i.e. they start on indices that are multiples of 3).
         By non-nested we mean that if an ORF occurs entirely within
-        another ORF, it should not be included in the returned list of ORFs.
-
         dna: a DNA sequence
         returns: a list of non-nested ORFs
 
@@ -203,6 +201,10 @@ def find_all_ORFs_both_strands(dna):
 
         dna: a DNA sequence
         returns: a list of non-nested ORFs
+
+        This doctest should also suffice, as it has at least one ORF
+        in both strands. Since find_all_ORFs works, if this
+        finds ORFs in both strands it should be good.
     >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
     ['ATGCGAATG', 'ATGCTACATTCGCAT']
     """
@@ -226,6 +228,9 @@ def find_all_ORFs_both_strands(dna):
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
         as a string
+
+        This doctest should be fine, it's not hard to pick the longest string
+        out of a list
     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
     'ATGCTACATTCGCAT'
     """
@@ -266,6 +271,9 @@ def coding_strand_to_AA(dna):
         returns: a string containing the sequence of amino acids encoded by the
                  the input DNA fragment
 
+        Assuming the dictionary we're provided works as advertised, we shouldn't
+        need more doctests than these, because these show that the function correctly
+        maps nucleotides to amino acids
         >>> coding_strand_to_AA("ATGCGA")
         'MR'
         >>> coding_strand_to_AA("ATGCCCGCTTT")
@@ -285,6 +293,9 @@ def gene_finder(dna):
 
         dna: a DNA sequence
         returns: a list of all amino acid sequences coded by the sequence dna.
+
+        No doctests here, because this is the output we're actually trying to
+        figure out.
     """
     threshold = longest_ORF_noncoding(dna,1500)
     ORFs = find_all_ORFs_both_strands(dna)
